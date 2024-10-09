@@ -120,7 +120,7 @@
   </head>
 
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
-    <main>
+    <main class="form-signin w-100 m-auto">
 
 <!--mensaje de alerta de usuario incorrecto -->
 <?php
