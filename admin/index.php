@@ -33,6 +33,9 @@
     <!--CSS bootstrap-->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
 
+    <!--icon-->
+    <link rel="icon" href="../img/6.ico" sizes="16x16" type="image/png" />
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
