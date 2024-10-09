@@ -29,6 +29,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"/>
     <title>Iniciar Sesión</title>
+
+    <!--CSS bootstrap-->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
   </head>
 
   <body >
@@ -90,6 +93,7 @@
       </form>
   </main>
   
+  <script src="../js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
 
