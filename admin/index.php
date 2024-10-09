@@ -36,6 +36,8 @@
     <!--icon-->
     <link rel="icon" href="../img/6.ico" sizes="16x16" type="image/png" />
 
+    <link href="../css/sign-in.css" rel="stylesheet" />
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -117,7 +119,7 @@
     </style>
   </head>
 
-  <body >
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main>
 
 <!--mensaje de alerta de usuario incorrecto -->
