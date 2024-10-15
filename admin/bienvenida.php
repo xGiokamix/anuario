@@ -1,3 +1,12 @@
+<?php
+session_start();
+//Valida la sesion
+if(!isset($_SESSION['usuario'])){
+    header("Location: index.php");
+    exit();
+}
+//echo "Bienvenido ".$_SESSION['usuario'];
+?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -317,7 +326,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
+                                <a class="nav-link d-flex align-items-center gap-2" href="salir.php">
                                     <svg class="bi"><use xlink:href="#door-closed"/></svg>
                                     Sign out
                                 </a>
@@ -387,3 +396,6 @@
         <script src="../js/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="dashboard.js"></script>
 </body>
 </html>
+<?php
+   mysqli_close($con);
+?>
