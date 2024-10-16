@@ -1,3 +1,32 @@
+<?php
+    include_once("../conf.php"); 
+    session_start();
+    $msj="";
+    if(!isset($_SESSION['usuario'])){
+        header("Location: index.php");
+        exit();
+    }
+    $con = mysqli_connect(HOST,DBUSER,PASS,DB);
+    if(!empty($_GET["btnGuardar"])){
+        if(!empty($_GET["correoUsuario"]) and !empty($_GET["contraUsuario"]) and !empty($_GET["confirmContra"])){
+            $correo     = $_GET["correoUsuario"];
+            $contra     = $_GET["contraUsuario"];
+            $confcontra = $_GET["confirmContra"];
+            // $activo     = $_GET["activoUsuario"];
+            if($contra == $confcontra){
+                $sql="insert into usuarios set usuario='$correo', clave=MD5('$contra'), activo='si'";
+                $res=mysqli_query($con,$sql);
+                header("Location: usuarios.php");
+                //$sql="insert into usuarios (usuario,clave,activo) values ('usuario','js123','si')";
+            }else{
+            $msj="Las contraseñas no son iguales";
+            }
+        }else{
+            $msj="Alguno de los campos esta vacío";
+        }
+    }
+?>
+    
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -334,7 +363,20 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Usuarios</h1>
         </div>
-            <form action='alta_usuario.php'>
+
+        <!--mensaje de alerta de usuario incorrecto -->
+<?php
+    if($msj!=""){
+?>
+
+    <div class="alert alert-danger" role="alert">
+    <?php echo $msj;?>
+    </div>
+
+<?php
+}
+?>
+            <form action='alta_usuario.php' method='get'>
                 <h1 class="h3 mb-3 fw-normal" style="text-align: center">
                 Ingrese datos
                 </h1>
@@ -380,3 +422,6 @@
         <script src="../js/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="dashboard.js"></script>
 </body>
 </html>
+<?php
+   mysqli_close($con);
+?>
