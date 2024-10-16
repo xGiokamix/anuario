@@ -1,4 +1,6 @@
 <?php
+include_once("../conf.php"); 
+$con = mysqli_connect(HOST,DBUSER,PASS,DB);
 session_start();
 //Valida la sesion
 if(!isset($_SESSION['usuario'])){
