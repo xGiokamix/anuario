@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['usuario'])){
+    header("Location: index.php");
+    exit();
+}
+include_once("../conf.php"); 
+$con = mysqli_connect(HOST,DBUSER,PASS,DB);
+?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -341,6 +350,11 @@
                     </div>   
                 </div>
             </div>
+    <!--Consulta usuarios -->
+<?php
+    $sql="select * from usuarios";
+    if($res = mysqli_query($con,$sql)){
+?>  
             <div class="table-responsive small">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -351,17 +365,27 @@
                         </tr>
                     </thead>
                     <tbody>
+<?php
+    while($row = mysqli_fetch_assoc($res)){
+?> 
                         <tr>
                             <td>
-                                <a class="btn btn-sm btn-outline-secondary"  href="editar_usuario.php">Editar</a>
-                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_usuario.php">Eliminar</a>
-                                <a class="btn btn-sm btn-outline-secondary" href="desactivar_usuario.php">Activar/Desactivar</a>
+                                <a class="btn btn-sm btn-outline-secondary"  href="editar_usuario.php?id=<?php echo $row['usuario'];?>">Editar</a>
+                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_usuario.php?id=<?php echo $row['usuario'];?>">Eliminar</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="desactivar_usuario.php?id=<?php echo $row['usuario'];?>&estado=<?php echo $row['activo'];?>">Activar/Desactivar</a>
                             </td>
-                            <td>Correo</td>
-                            <td>Activo</td>
+                            <td><?php echo $row['usuario'];?></td>
+                            <td><?php echo $row['activo'];?></td>
                         </tr>
+<?php
+}
+?>
+   
                     </tbody>
                 </table>
+<?php
+}
+?>
             </div>
         </div>
     </main>
@@ -372,3 +396,6 @@
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
+<?php
+   mysqli_close($con);
+?>

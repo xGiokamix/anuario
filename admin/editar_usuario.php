@@ -1,3 +1,36 @@
+<?php
+    include_once("../conf.php");
+    session_start();
+    $msj="";
+    //Valida la sesion
+    if(!isset($_SESSION['usuario'])){
+        header("Location: index.php");
+        exit();
+    }
+    $con = mysqli_connect(HOST,DBUSER,PASS,DB);   
+    if(!empty($_GET["btnGuardar"])){
+        if(!empty($_GET["correoUsuario"]) ){
+            $id         = $_GET["id"];
+            $correo     = $_GET["correoUsuario"];
+            $contra     = $_GET["contraUsuario"];
+            $confcontra = $_GET["confirmContra"];
+            $activo     = $_GET["activoUsuario"];
+
+            if(empty($contra)){
+            //$sql="update usuarios set usuario='$correo', clave=MD5('$contra'), activo='$activo' where usuario='$id';";
+            $sql="update usuarios set usuario='$correo' where usuario='$id';";
+            $res = mysqli_query($con,$sql);
+            header("Location: usuarios.php");
+            }else if(!empty($contra) && $contra==$confcontra){
+                $sql="update usuarios set usuario='$correo', clave=MD5('$contra') where usuario='$id';";
+                $res = mysqli_query($con,$sql);
+                header("Location: usuarios.php");
+            }else{
+            $msj="Las contraseñas no son iguales";
+            }
+        }
+    }
+?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -334,7 +367,25 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Editar Usuario</h1>
         </div>
-        <form action='editar_usuario.php'>
+<!--mensaje de alerta de usuario incorrecto -->
+<?php
+    if($msj!=""){
+?>
+    <div class="alert alert-danger" role="alert">
+<?php 
+    echo $msj;
+?>
+    </div>
+<?php
+    }
+?>
+        <form action='editar_usuario.php' method='get'>
+<?php
+    $id=$_GET["id"];
+    $sql="select * from usuarios where usuario='$id'";
+    if($res = mysqli_query($con,$sql)){
+        while($row = mysqli_fetch_assoc($res)){
+?>
             <div class="form-floating">
                 <input
                     type="email"
@@ -342,7 +393,7 @@
                     id="floatingInput"
                     placeholder="name@example.com"
                     name="correoUsuario"
-                    value=""
+                    value="<?php echo $row['usuario']?>"
                     required 
                 />
                 <label for="floatingInput">Dirección de correo electrónico</label>
@@ -369,12 +420,18 @@
             </div>
             <div class="form-floating">
                 <select name="activoUsuario">
-					<option value="si">Activo</option>
-					<option value="no">Inactivo</option>
+					<option value="si" <?php if($row["activo"]=="si"){ echo "selected"; } ?> >Activo</option>
+					<option value="no" <?php if($row["activo"]=="no"){ echo "selected"; } ?> >Inactivo</option>
 				</select>
             </div>
         </div>
-        <input type="hidden" name="id" value=''>
+<?php
+  }
+
+}
+?>
+
+        <input type="hidden" name="id" value='<?php echo $id;?>'>
         <button class="btn btn-primary w-100 py-2" value="ok" type="submit" name="btnGuardar">
         Registrar
         </button>
@@ -387,3 +444,6 @@
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
+<?php
+   mysqli_close($con);
+?>
