@@ -12,5 +12,6 @@ if(!isset($_SESSION['usuario'])){
         $res=mysqli_query($con,$sql);
     }
         header("Location: usuarios.php"); 
+        mysqli_close($con);
         exit;
 ?>
