@@ -383,7 +383,7 @@
         </div>
     </div>
     
-        <script src="../js/bootstrap.bundle1.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="../js/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+        <script src="../js/bootstrap.bundle1.min.js"></script>
+        <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
