@@ -352,8 +352,8 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a class="btn btn-sm btn-outline-secondary"  href="editar_carrera.php">Editar</a>
-                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_carrera.php">Eliminar</a>
+                                <a class="btn btn-sm btn-outline-secondary"  href="editar_generacion.php">Editar</a>
+                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_generacion.php">Eliminar</a>
                                
                             </td>
                             <td>Generación</td>
