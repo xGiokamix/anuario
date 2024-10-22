@@ -1,14 +1,3 @@
-<?php
-include_once("../conf.php"); 
-$con = mysqli_connect(HOST,DBUSER,PASS,DB);
-session_start();
-//Valida la sesion
-if(!isset($_SESSION['usuario'])){
-    header("Location: index.php");
-    exit();
-}
-//echo "Bienvenido ".$_SESSION['usuario'];
-?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -34,7 +23,7 @@ if(!isset($_SESSION['usuario'])){
     <!-- Custom styles for this template -->
     <link href="../css/dashboard.css" rel="stylesheet">
     <title>Administrador</title>
-
+        
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -112,10 +101,12 @@ if(!isset($_SESSION['usuario'])){
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
-    </style>    
-  </head>
-  <body>
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    </style>
+
+</head>
+<body>
+  
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
       </symbol>
@@ -328,7 +319,7 @@ if(!isset($_SESSION['usuario'])){
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="salir.php">
+                                <a class="nav-link d-flex align-items-center gap-2" href="#">
                                     <svg class="bi"><use xlink:href="#door-closed"/></svg>
                                     Sign out
                                 </a>
@@ -338,68 +329,48 @@ if(!isset($_SESSION['usuario'])){
                 </div>
             </div>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                    </div>
-                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                            <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                            This week
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <a href="usuarios.php">Usuarios</a>
-                    <a href="alumnos.php">Alumnos</a></div>
-                    <a href="carreras.php">Carreras</a></div>
-                    <a href="carreras.php">Generacion</a></div>
 
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-                <h2>Section title</h2>
-                <div class="table-responsive small">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <td>1,001</td>
-                            <td>random</td>
-                            <td>data</td>
-                            <td>placeholder</td>
-                            <td>text</td>
-                            </tr>
-                            <tr>
-                            <td>1,002</td>
-                            <td>placeholder</td>
-                            <td>irrelevant</td>
-                            <td>visual</td>
-                            <td>layout</td>
-                            </tr>
-                          
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            </main>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Carrera</h1>
         </div>
+            <form action='alta_carrera.php'>
+                        
+        <h1 class="h3 mb-3 fw-normal" style="text-align: center">
+          
+          </h1>
+          <div class="form-floating">
+            <input
+              type="input"
+              class="form-control"
+              id="floatingInput"
+              placeholder="Clave Carrera"
+              name="clave"
+            />
+            <label for="floatingInput">Clave Carrera</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="input"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Nombre Carrera"
+              name="nombre"
+            />
+            <label for="floatingPassword">Nombre Carrera</label>
+            </div>
+         
+            <button class="btn btn-primary w-60 py-2" value="ok" type="submit" name="btnGuardar">
+            Registrar
+            </button>
+          
+          </div>      
+        </form>    
+    </main>
+</div>
     </div>
     
         <script src="../js/bootstrap.bundle1.min.js"></script>
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
-<?php
-   mysqli_close($con);
-?>
