@@ -346,6 +346,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Accion</th>
+                            <th scope="col">ID</th>  
                             <th scope="col">Generación</th>  
                         </tr>
                     </thead>
@@ -356,6 +357,7 @@
                                 <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_generacion.php">Eliminar</a>
                                
                             </td>
+                            <td>ID</td>
                             <td>Generación</td>
                         </tr>
                     </tbody>

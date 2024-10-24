@@ -350,7 +350,7 @@ $con = mysqli_connect(HOST,DBUSER,PASS,DB);
                     </div>   
                 </div>
             </div>
-<!--Consulta usuarios -->
+            <!--Consulta usuarios -->
 <?php
     $sql="select * from alumnos";
     if($res = mysqli_query($con,$sql)){
@@ -372,6 +372,7 @@ $con = mysqli_connect(HOST,DBUSER,PASS,DB);
 <?php
     while($row = mysqli_fetch_assoc($res)){
 ?> 
+
                         <tr>
                             <td>
                                 <a class="btn btn-sm btn-outline-secondary"  href="editar_alumno.php?id=<?php echo $row['matricula'];?>">Editar</a>

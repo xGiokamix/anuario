@@ -1,14 +1,3 @@
-<?php
-include_once("../conf.php"); 
-$con = mysqli_connect(HOST,DBUSER,PASS,DB);
-session_start();
-//Valida la sesion
-if(!isset($_SESSION['usuario'])){
-    header("Location: index.php");
-    exit();
-}
-//echo "Bienvenido ".$_SESSION['usuario'];
-?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -356,7 +345,7 @@ if(!isset($_SESSION['usuario'])){
                     <a href="usuarios.php">Usuarios</a>
                     <a href="alumnos.php">Alumnos</a></div>
                     <a href="carreras.php">Carreras</a></div>
-                    <a href="generacion.php">Generacion</a></div>
+                    <a href="generacion.php">Generaciones</a></div>
 
                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
@@ -400,6 +389,3 @@ if(!isset($_SESSION['usuario'])){
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
-<?php
-   mysqli_close($con);
-?>

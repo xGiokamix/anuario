@@ -346,6 +346,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Accion</th>
+                            <th scope="col">Clave</th>  
                             <th scope="col">Carrera</th>  
                         </tr>
                     </thead>
@@ -356,6 +357,7 @@
                                 <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_carrera.php">Eliminar</a>
                                
                             </td>
+                            <td>Clave</td>
                             <td>Carrera</td>
                         </tr>
                     </tbody>
