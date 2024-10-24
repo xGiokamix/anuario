@@ -1,26 +1,3 @@
-<?php
-   include_once("../conf.php"); 
-    $msj="";
-    $con = mysqli_connect(HOST,DBUSER,PASS,DB); 
-
-/////////*******Validación login usuario ******* */
-  if(isset($_POST["correo"]) && isset($_POST["clave"])){
-    $sql="select count(*) cnt from usuarios where usuario='".$_POST["correo"]."' and clave='".md5($_POST["clave"])."'and activo='si'";
-    $res=mysqli_query($con,$sql);
-    $row =mysqli_fetch_assoc($res);
-    
-      if($row["cnt"]==1){
-      //inicia sesión
-        session_start();
-        $_SESSION['usuario']=$_POST['correo'];
-        header("Location: bienvenida.php");
-        mysqli_close($con);
-        exit();
-      } else {
-        $msj=("Usuario y/o clave incorectos");
-      } 
-  }
-?>
 
 <!DOCTYPE html>
 <html lang="es" data-bs-theme="auto">
@@ -121,17 +98,6 @@
 
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto">
-
-<!--mensaje de alerta de usuario incorrecto -->
-<?php
-  if($msj!=""){
-?>
-      <div class="alert alert-danger" role="alert">
-      <?php echo $msj;?>
-      </div>
-<?php
-}
-?>
       <form action='index.php' method='post'>
         <div style="text-align: center">
           <img class="mb-4" src="../img/6.ico" alt width="100" height="100" />
@@ -181,7 +147,3 @@
   <script src="../js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-
-<?php
-   mysqli_close($con);
-?>
