@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['usuario'])){
+    header("Location: index.php");
+    exit();
+}
+include_once("../conf.php"); 
+$con = mysqli_connect(HOST,DBUSER,PASS,DB);
+?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -341,7 +350,11 @@
                     </div>   
                 </div>
             </div>
-
+            <!--Consulta usuarios -->
+<?php
+    $sql="select * from alumnos";
+    if($res = mysqli_query($con,$sql)){
+?>  
             <div class="table-responsive small">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -356,24 +369,31 @@
                         </tr>
                     </thead>
                     <tbody>
+<?php
+    while($row = mysqli_fetch_assoc($res)){
+?> 
 
                         <tr>
                             <td>
-                                <a class="btn btn-sm btn-outline-secondary"  href="editar_alumno.php">Editar</a>
-                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_alumno.php">Eliminar</a>
-                                
+                                <a class="btn btn-sm btn-outline-secondary"  href="editar_alumno.php?id=<?php echo $row['matricula'];?>">Editar</a>
+                                <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('¿Estas seguro de continuar?');"  href="eliminar_alumno.php?id=<?php echo $row['matricula'];?>">Eliminar</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="desactivar_alumno.php">Activar/Desactivar</a>
                             </td>
-                            <td>matricula</td>
-                            <td>nombre</td>
-                            <td>Paterno</td>
-                            <td>Materno</td>
-                            <td>foto</td>
-                            <td>descripcion</td>
+                            <td><?php echo $row['matricula'];?></td>
+                            <td><?php echo $row['nombre'];?></td>
+                            <td><?php echo $row['paterno'];?></td>
+                            <td><?php echo $row['materno'];?></td>
+                            <td><?php echo $row['foto'];?></td>
+                            <td><?php echo $row['descripcion'];?></td>
                         </tr>
-
+<?php
+}
+?>
                     </tbody>
                 </table>
-
+<?php
+}
+?>
             </div>
         </div>
     </main>
@@ -384,3 +404,6 @@
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
+<?php
+   mysqli_close($con);
+?>

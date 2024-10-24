@@ -1,3 +1,31 @@
+<?php
+    include_once("../conf.php");
+    session_start();
+    $msj="";
+    //Valida la sesion
+    if(!isset($_SESSION['usuario'])){
+        header("Location: index.php");
+        exit();
+    }
+    $con = mysqli_connect(HOST,DBUSER,PASS,DB);   
+    if(!empty($_GET["btnGuardar"])){
+        if(!empty($_GET["matricula"]) ){
+            $id          = $_GET["matricula"];
+            $nombre      = $_GET["nombre"];
+            $paterno     = $_GET["paterno"];
+            $materno     = $_GET["materno"];
+            $foto        = $_GET["foto"];
+            $descripcion = $_GET["descripcion"];
+
+            $sql="update alumnos set matricula='$id', nombre='$nombre', paterno='$paterno', materno='$materno',foto='$foto',descripcion='$descripcion' where matricula='$id';";
+            $res = mysqli_query($con,$sql);
+            header("Location: alumnos.php");
+            }else{
+            $msj="Error";
+            }
+        }
+    
+?>
 <!doctype html>
 <html lang="es" data-bs-theme="auto">
  <head><script src="../assets/color-modes.js"></script>
@@ -333,10 +361,27 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Editar Alumno</h1>
-
+<!--mensaje de alerta de usuario incorrecto -->
+<?php
+    if($msj!=""){
+?>
+    <div class="alert alert-danger" role="alert">
+<?php 
+    echo $msj;
+?>
+    </div>
+<?php
+    }
+?>
         </div>
             <form action='editar_alumno.php' method='get'>
-                    
+ <?php
+    $id=$_GET["id"];
+    $sql="select * from alumnos where matricula='$id'";
+    if($res = mysqli_query($con,$sql)){
+        while($row = mysqli_fetch_assoc($res)){
+?>
+                        
         <h1 class="h3 mb-3 fw-normal" style="text-align: center">
           
           </h1>
@@ -347,7 +392,7 @@
               id="floatingInput"
               placeholder="matricula"
               name="matricula"
-              value=""
+              value="<?php echo $row['matricula']?>"
               required 
             />
             <label for="floatingInput">Matricula Alumno</label>
@@ -358,7 +403,7 @@
               class="form-control"
               id="floatingPassword"
               placeholder="Nombre"
-              value=""
+              value="<?php echo $row['nombre']?>"
               name="nombre"
             />
             <label for="floatingPassword">Nombre Alumno</label>
@@ -370,7 +415,7 @@
               class="form-control"
               id="floatingPassword"
               placeholder="Paterno"
-              value=""
+              value="<?php echo $row['paterno']?>"
               name="paterno"
             />
             <label for="floatingPassword">Apellido Paterno</label>
@@ -382,7 +427,7 @@
               class="form-control"
               id="floatingPassword"
               placeholder="Materno"
-              value=""
+              value="<?php echo $row['materno']?>"
               name="materno"
             />
             <label for="floatingPassword">Apellido Materno</label>
@@ -394,7 +439,7 @@
               class="form-control"
               id="floatingPassword"
               placeholder="foto.jpg"
-              value=""
+              value="<?php echo $row['foto']?>"
               name="foto"
             />
             <label for="floatingPassword">Foto</label>
@@ -405,12 +450,16 @@
               class="form-control"
               id="floatingPassword"
               placeholder="descripcion"
-              value=""
+              value="<?php echo $row['descripcion']?>"
               name="descripcion"
             />
             <label for="floatingPassword">Descripción</label>
             </div>
+<?php
+  }
 
+}
+?>
            
             <button class="btn btn-primary w-60 py-2" value="ok" type="submit" name="btnGuardar">
             Guardar
@@ -426,4 +475,6 @@
         <script src="../js/chart.umd.js"></script><script src="dashboard.js"></script>
 </body>
 </html>
-
+<?php
+   mysqli_close($con);
+?>
